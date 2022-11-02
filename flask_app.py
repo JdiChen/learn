@@ -3,51 +3,51 @@ from flask import Flask, redirect, url_for, request, render_template, abort
 app = Flask(__name__)
 app.debug = True
 USER = {
-    "user_name": "",
-    "age": "",
-    "phone": ""
+    "username": "testFindName",
+    "age": "25",
+    "phone": "1358xxxxxxxx"
 }
 
 
-def fail(fail_mesg, err_code=500, return_obj={}):
+def fail(failMesg, errCode=500, returnObj={}):
     fail = {
-        "code": err_code,
-        "message": fail_mesg,
-        "return_obj": return_obj
+        "code": errCode,
+        "message": failMesg,
+        "returnObj": returnObj
     }
     return fail
 
 
-def success(mesg, return_obj={}):
+def success(mesg, returnObj={}):
     done = {
         "code": 200,
         "message": f"success {mesg}",
-        "return_obj": return_obj
+        "returnObj": returnObj
     }
     return done
 
 
 @app.route('/addUser', methods=["POST"])
-def add_user():
+def addUser():
     global USER
-    user_info = request.json
-    if not isinstance(user_info['phone'], str):
+    userInfo = request.json
+    if not isinstance(userInfo['phone'], str):
         return fail("not allow!!")
-    USER['user_name'] = user_info['user_name']
-    USER['age'] = user_info["age"]
-    USER['phone'] = user_info["phone"]
+    USER['username'] = userInfo['username']
+    USER['age'] = userInfo["age"]
+    USER['phone'] = userInfo["phone"]
     return success("add user", USER)
 
 
 @app.route("/findUser/<string:name>")
-def get_user_info(name):
+def getUserInfo(name):
     global USER
     user_info = {
         "mesg": "not people"
     }
-    if name == USER['user_name']:
+    if name == USER['username']:
         user_info = {
-            "user_name": USER['user_name'],
+            "username": USER['username'],
             "age": USER['age'],
             "phone": USER["phone"]
         }
@@ -55,10 +55,10 @@ def get_user_info(name):
 
 
 @app.route("/delUser", methods=["POST"])
-def del_user():
-    name = request.json['user_name']
+def delUser():
+    name = request.json['username']
     return success(f"del {name} done")
 
 
 if __name__ == '__main__':
-    app.run(host='127.0.0.1', port=65525)
+    app.run()
