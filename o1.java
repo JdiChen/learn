@@ -6,7 +6,16 @@ import java.util.List;
 import java.util.Scanner;
 
 public class A3381 {
+/*输入由字母、空格 ‘ ‘、和破折号 ‘-‘ 组成的字符串。请你按下述方式重新格式化字符串。
 
+首先，删除 所有的空格和破折号。
+其次，将字符串从左到右每 3 个一组 分块，直到 剩下 4 个或更少字母。剩下的字母将按下述规定再分块：
+2 个字母：单个含 2 个字母的块。
+3 个字母：单个含 3 个字母的块。
+4 个字母：两个分别含 2 个字母的块。
+最后用破折号将这些块连接起来。
+
+输出格式化后的字符串*/
     public static void main(String[] args) {
             Scanner scanner = new Scanner(System.in);
             String str = scanner.nextLine().trim().replaceAll("-", "").replaceAll(" ", "");
